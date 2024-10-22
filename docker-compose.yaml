@@ -1,0 +1,8 @@
+services:
+  web:
+    image: nginx
+    container_name: serve_static_connect4
+    volumes:
+    - ./template_files:/usr/share/nginx/html
+    ports:
+    - "8080:80"
