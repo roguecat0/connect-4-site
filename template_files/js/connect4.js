@@ -17,7 +17,14 @@ response = {
 $(document).ready(function () {
     $(".column").on("click", function () {
         play_move(this.id[1])
-        handel_response()
+        $.ajax({
+            url: "/move/"+ moves,
+            success: function (response) {
+                // $("#result").html(response)
+                let res = JSON.parse(response)
+                handel_response(res)
+            },
+        })
     })
 })
 
@@ -39,7 +46,9 @@ function play_move(eid) {
     columns[eid]++
     turn++
 }
-function handel_response() {
+function handel_response(response) {
+    console.log(GameState.Ongoing)
+    console.log(response)
     if (response["game_state_pre"] != GameState.Ongoing) {
         show_winner(response["game_state_pre"])
         return
